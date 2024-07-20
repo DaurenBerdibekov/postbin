@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -38,4 +39,7 @@ public class Person implements Serializable {
 
     @NotNull
     private LocalDateTime createdAt;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Message> messages;
 }
