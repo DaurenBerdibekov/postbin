@@ -4,18 +4,17 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Entity
+@Entity(name = "message")
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
-public class Person implements Serializable {
+public class Message implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -26,20 +25,15 @@ public class Person implements Serializable {
     private String id;
 
     @NotNull
-    private String firstname;
+    private String subject;
 
     @NotNull
-    private String lastname;
-
-    @NotNull
-    private String email;
-
-    @NotNull
-    private String password;
+    private String content;
 
     @NotNull
     private LocalDateTime createdAt;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Message> messages;
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
 }
