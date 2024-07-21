@@ -16,26 +16,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(value = PersonController.REST_URL)
+@RequestMapping(value = MessageController.REST_URL)
 public interface MessageController {
 
     String REST_URL = "/api/v1/persons/{personId}/messages";
 
-    @Operation(
-            summary = "Creates a new message",
-            responses = {
-                    @ApiResponse(responseCode = "201", description = "Returns DTO of the newly created message with new id assigned and Location header.",
-                            content = @Content(schema = @Schema(implementation = MessageDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE),
-                            headers = @Header(name = "Location", description = "URL of the newly created message", schema = @Schema(type = "string"))),
-                    @ApiResponse(responseCode = "400", description = "Invalid Request Body (Some validation failed)",
-                            content = @Content(schema = @Schema(implementation = ErrorGroupDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
-                    @ApiResponse(responseCode = "404", description = "Customer not found",
-                            content = @Content(schema = @Schema(implementation = ErrorGroupDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
-                    @ApiResponse(responseCode = "415", description = "Media Type Not Supported",
-                            content = @Content(schema = @Schema(implementation = ErrorGroupDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
-                    @ApiResponse(responseCode = "500", description = "Server error",
-                            content = @Content(schema = @Schema(implementation = ErrorGroupDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
-            })
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.CREATED)
     MessageDTO createMessage(@RequestBody @ParameterObject MessageDTO messageDTO, @PathVariable @UUID String personId);
@@ -56,8 +42,6 @@ public interface MessageController {
                     @ApiResponse(responseCode = "400", description = "Invalid Request Body (Some validation failed)",
                             content = @Content(schema = @Schema(implementation = ErrorGroupDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
                     @ApiResponse(responseCode = "404", description = "Message or person not found",
-                            content = @Content(schema = @Schema(implementation = ErrorGroupDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
-                    @ApiResponse(responseCode = "415", description = "Media Type Not Supported",
                             content = @Content(schema = @Schema(implementation = ErrorGroupDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
                     @ApiResponse(responseCode = "500", description = "Server error",
                             content = @Content(schema = @Schema(implementation = ErrorGroupDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE))

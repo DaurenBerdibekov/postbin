@@ -21,6 +21,7 @@ public class MessageControllerImpl implements MessageController{
     @Override
     public MessageDTO createMessage(MessageDTO messageDTO, String personId) {
         log.info("Received request to create message: {}", messageDTO);
+        log.trace("MessageDTO object: ", messageDTO);
 
         // map to the domain model
         Message message = messageDTOMapper.toModel(messageDTO);

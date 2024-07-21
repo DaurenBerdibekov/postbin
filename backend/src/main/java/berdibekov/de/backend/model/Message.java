@@ -24,10 +24,10 @@ public class Message implements Serializable {
     @Column(name = "id")
     private String id;
 
-    @NotNull
+    //@NotNull
     private String subject;
 
-    @NotNull
+    //@NotNull
     private String content;
 
     @NotNull

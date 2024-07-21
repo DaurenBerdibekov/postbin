@@ -11,7 +11,11 @@ spring:
       ddl-auto: create-drop
     show-sql: true
   liquibase:
-    change-log: 'classpath:db/liquibase-changelog.xml'
+    change-log: 'db/changelog/liquibase-changelog.xml'
     show-summary-output: all
   messages:
-    basename: ValidationMasseges
+    basename: ValidationMessages
+logging:
+  level:
+    root: trace
+    org.springframework: trace
