@@ -1,11 +1,14 @@
 package berdibekov.de.backend.controller;
 
+import berdibekov.de.backend.dto.MessageDTO;
 import berdibekov.de.backend.dto.PersonDTO;
 import berdibekov.de.backend.mapper.PersonDTOMapper;
+import berdibekov.de.backend.model.Message;
 import berdibekov.de.backend.model.Person;
 import berdibekov.de.backend.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,7 +29,23 @@ public class PersonControllerImpl implements PersonController{
 
         log.info("The new person with id {} was created", createdPerson.getId());
 
-        return personDTOMapper.toDTO(createdPerson);
+        return personDTOMapper.toDTO(createdPerson, person.getId());
+    }
+
+    @Override
+    public PersonDTO updatePerson(@RequestBody PersonDTO personDTO, String personId) {
+        log.info("Received request to update person with id: {}", personId);
+
+        // map to the domain model
+        Person person = personDTOMapper.toModel(personDTO);
+
+        // update the person
+        Person updatedPerson = personService.updatePerson(person, personId);
+
+        log.info("Person with id {} was updated", updatedPerson.getId());
+
+        // map back to the DTO and return
+        return personDTOMapper.toDTO(updatedPerson, personId);
     }
 
     @Override

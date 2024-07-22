@@ -6,6 +6,9 @@ import berdibekov.de.backend.model.Message;
 import berdibekov.de.backend.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,7 +22,7 @@ public class MessageControllerImpl implements MessageController{
     private final MessageDTOMapper messageDTOMapper;
 
     @Override
-    public MessageDTO createMessage(MessageDTO messageDTO, String personId) {
+    public MessageDTO createMessage(String personId, @RequestBody MessageDTO messageDTO) {
         log.info("Received request to create message: {}", messageDTO);
         log.trace("MessageDTO object: ", messageDTO);
 
@@ -27,12 +30,12 @@ public class MessageControllerImpl implements MessageController{
         Message message = messageDTOMapper.toModel(messageDTO);
 
         // create a message
-        Message createdMessage = messageService.createMessage(message, personId);
+        Message createdMessage = messageService.createMessage(personId, message);
 
         log.info("A new message with id {} was created", createdMessage.getId());
 
         // map back to the DTO and return
-        return messageDTOMapper.toDTO(createdMessage);
+        return messageDTOMapper.toDTO(createdMessage, personId);
     }
 
     @Override
@@ -43,7 +46,7 @@ public class MessageControllerImpl implements MessageController{
         Message message = messageService.getOne(messageId, personId);
 
         // map back to the DTO and return
-        return messageDTOMapper.toDTO(message);
+        return messageDTOMapper.toDTO(message, personId);
     }
 
     @Override
@@ -57,7 +60,7 @@ public class MessageControllerImpl implements MessageController{
     }
 
     @Override
-    public MessageDTO updateMessage(MessageDTO messageDTO, String personId, String messageId) {
+    public MessageDTO updateMessage(@RequestBody @ParameterObject MessageDTO messageDTO, @PathVariable String personId, @PathVariable String messageId) {
         log.info("Received request to update message with id: {}, for person with id: {}", messageId, personId);
 
         // map to the domain model
@@ -69,11 +72,11 @@ public class MessageControllerImpl implements MessageController{
         log.info("Message with id {} was updated", updatedMessage.getId());
 
         // map back to the DTO and return
-        return messageDTOMapper.toDTO(updatedMessage);
+        return messageDTOMapper.toDTO(updatedMessage, personId);
     }
 
     @Override
-    public void deleteMessage(String personId, String messageId) {
+    public void deleteMessage(@PathVariable String personId, @PathVariable String messageId) {
         log.info("Received request to delete message with id: {}, for person with id: {}", messageId, personId);
 
         // delete the message

@@ -8,6 +8,7 @@ import berdibekov.de.backend.util.Util;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,7 +21,8 @@ public class MessageService {
     private final Util util;
     private final MessageRepository messageRepository;
 
-    public Message createMessage(Message message, String personId){
+    @Transactional
+    public Message createMessage(String personId, Message message){
 
         message.setCreatedAt(util.getLocalDateTime());
         message.setId(util.generateRandomUUID());
@@ -50,13 +52,15 @@ public class MessageService {
         return messages;
     }
 
+    @Transactional
     public Message updateMessage(Message message, String personId, String messageId) {
         log.info("Updating message with id: {} for person with id: {}", messageId, personId);
 
         Message existingMessage = messageRepository.findByIdAndPersonId(messageId, personId)
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND_MESSAGE.formatted(messageId)));
 
-        existingMessage.setContent(message.getContent());  // Обновите нужные поля
+        existingMessage.setSubject(message.getSubject());
+        existingMessage.setContent(message.getContent());
         existingMessage.setCreatedAt(util.getLocalDateTime());
 
         return messageRepository.save(existingMessage);

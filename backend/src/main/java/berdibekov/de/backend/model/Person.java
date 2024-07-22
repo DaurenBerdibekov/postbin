@@ -40,6 +40,6 @@ public class Person implements Serializable {
     @NotNull
     private LocalDateTime createdAt;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> messages;
 }

@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface PersonDTOMapper {
 
-    PersonDTO toDTO(Person person);
+    PersonDTO toDTO(Person person, String personId);
 
     Person toModel(PersonDTO personDTO);
 

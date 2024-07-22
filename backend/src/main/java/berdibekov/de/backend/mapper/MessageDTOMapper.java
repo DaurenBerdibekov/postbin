@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface MessageDTOMapper {
 
-    MessageDTO toDTO(Message message);
+    MessageDTO toDTO(Message message, String personId);
 
     Message toModel(MessageDTO messageDTO);
 
