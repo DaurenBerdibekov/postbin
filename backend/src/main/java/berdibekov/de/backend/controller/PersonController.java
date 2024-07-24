@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import org.hibernate.validator.constraints.UUID;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,6 +32,20 @@ public interface PersonController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     PersonDTO createPerson(@RequestBody @ParameterObject PersonDTO personDTO);
+
+    @Operation(
+            summary = "Get one person",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Returns the newly created person with new id assigned.",
+                            content = @Content(schema = @Schema(implementation = MessageDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+                    @ApiResponse(responseCode = "400", description = "Invalid Request Body (Some validation failed)",
+                            content = @Content(schema = @Schema(implementation = ErrorGroupDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+                    @ApiResponse(responseCode = "500", description = "Server error",
+                            content = @Content(schema = @Schema(implementation = ErrorGroupDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
+            })
+    @GetMapping(value = "/{personId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    PersonDTO getPerson(@PathVariable String personId);
 
     @Operation(
             summary = "Update person",
