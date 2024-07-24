@@ -1,9 +1,7 @@
 package berdibekov.de.backend.controller;
 
-import berdibekov.de.backend.dto.MessageDTO;
 import berdibekov.de.backend.dto.PersonDTO;
 import berdibekov.de.backend.mapper.PersonDTOMapper;
-import berdibekov.de.backend.model.Message;
 import berdibekov.de.backend.model.Person;
 import berdibekov.de.backend.service.PersonService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +28,17 @@ public class PersonControllerImpl implements PersonController{
         log.info("The new person with id {} was created", createdPerson.getId());
 
         return personDTOMapper.toDTO(createdPerson, person.getId());
+    }
+
+    @Override
+    public PersonDTO getPerson(String personId) {
+        log.info("Received a request to get person by id: : {}", personId);
+
+        // get one person
+        Person person = personService.getOne(personId);
+
+        // map back to the DTO and return
+        return personDTOMapper.toDTO(person, personId);
     }
 
     @Override

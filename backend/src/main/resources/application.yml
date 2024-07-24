@@ -15,7 +15,3 @@ spring:
     show-summary-output: all
   messages:
     basename: ValidationMessages
-logging:
-  level:
-    root: trace
-    org.springframework: trace

@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class PersonService {
+
+    private static final String NOT_FOUND_PERSON = "Message with id '%s' does not exist";
     private final Util util;
     private final PersonRepository personRepository;
 
@@ -32,7 +32,7 @@ public class PersonService {
         log.info("Delete person with id: {}", personId);
 
         Person existingPerson = personRepository.findById(personId)
-                .orElseThrow(() -> new NotFoundException("Person with id '%s' does not exist.".formatted(personId)));
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_PERSON.formatted(personId)));
 
         personRepository.delete(existingPerson);
     }
@@ -42,7 +42,7 @@ public class PersonService {
         log.info("Updating person with id: {}", personId);
 
         Person existingPerson = personRepository.findById(personId)
-                .orElseThrow(() -> new NotFoundException("Person with id '%s' does not exist.".formatted(personId)));
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_PERSON.formatted(personId)));
 
         existingPerson.setFirstname(person.getFirstname());
         existingPerson.setLastname(person.getLastname());
@@ -50,5 +50,9 @@ public class PersonService {
         existingPerson.setCreatedAt(LocalDateTime.now());
 
         return personRepository.save(existingPerson);
+    }
+
+    public Person getOne(String personId) {
+        return personRepository.findById(personId).orElseThrow(() -> new NotFoundException(NOT_FOUND_PERSON.formatted(personId)));
     }
 }
