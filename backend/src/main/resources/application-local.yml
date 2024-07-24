@@ -2,7 +2,7 @@ spring:
   application:
     name: postbin
   datasource:
-    url: jdbc:postgresql://localhost:5433/postbin
+    url: jdbc:postgresql://host.docker.internal:5433/postbin
     username: postgres
     password: user
     driver-class-name: org.postgresql.Driver
@@ -13,5 +13,3 @@ spring:
   liquibase:
     change-log: 'db/changelog/liquibase-changelog.xml'
     show-summary-output: all
-  messages:
-    basename: ValidationMessages
