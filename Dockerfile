@@ -6,4 +6,4 @@ EXPOSE 8080
 
 ADD backend/target/postbin.jar postbin.jar
 
-CMD ["sh", "-c", "java -jar /postbin.jar"]
+ENTRYPOINT ["java", "-jar", "postbin.jar"]
