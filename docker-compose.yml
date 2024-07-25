@@ -25,7 +25,7 @@ services:
     networks:
       - postbin_network
     environment:
-      SPRING_PROFILES_ACTIVE: local
+      SPRING_PROFILES_ACTIVE: application-local
 
 networks:
   postbin_network:
