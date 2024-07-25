@@ -1,4 +1,4 @@
-FROM openjdk:22
+FROM --platform=linux/amd64 openjdk:22
 
 #ENV POSTBIN_DB=jdbc:postgresql://postgres:5432/postbin
 
