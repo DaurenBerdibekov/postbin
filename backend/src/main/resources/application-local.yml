@@ -13,3 +13,5 @@ spring:
   liquibase:
     change-log: 'db/changelog/liquibase-changelog.xml'
     show-summary-output: all
+server:
+  port: 8080
