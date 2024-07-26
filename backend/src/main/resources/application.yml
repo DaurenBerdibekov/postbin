@@ -2,7 +2,7 @@ spring:
   application:
     name: postbin
   datasource:
-    url: ${POSTGRES_URL}
+    url: jdbc:${POSTGRES_URL}
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
