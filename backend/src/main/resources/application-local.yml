@@ -2,7 +2,7 @@ spring:
   application:
     name: postbin
   datasource:
-    url: jdbc:postgresql://host.docker.internal:5433/postbin
+    url: jdbc:postgresql://localhost:5432/postbin
     username: postgres
     password: user
     driver-class-name: org.postgresql.Driver
