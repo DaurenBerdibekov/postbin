@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './RegistrationForm.css';
 
 const RegistrationForm: React.FC = () => {
     const [firstname, setFirstname] = useState('');
@@ -10,76 +11,64 @@ const RegistrationForm: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    const handleRegister = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleRegistration = async (event: React.FormEvent) => {
+        event.preventDefault();
         try {
-            const response = await axios.post('/api/v1/persons', { firstname, lastname, email, password });
-            const personId = response.data.id;
-            navigate(`/profile/${personId}`);
-            setError(null);
+            await axios.post('/api/v1/persons', { firstname, lastname, email, password });
+            navigate('/login');
         } catch (error) {
-            setError('Error creating user. Please try again.');
+            setError('Error registering user. Please try again.');
             console.error(error);
         }
     };
 
-    const handleLogin = () => {
-        navigate('/login');
-    };
-
     return (
         <div className="registration-container">
-            <div className="registration-form">
-                <h3 className="registration-title">Register</h3>
+            <div className="registration-wrapper">
+                <h2 className="registration-title">Register</h2>
                 {error && <p className="error">{error}</p>}
-                <form onSubmit={handleRegister}>
-                    <label htmlFor="fname">First Name</label>
+                <form onSubmit={handleRegistration} className="registration-form">
                     <input
                         type="text"
-                        id="fname"
-                        name="firstname"
-                        placeholder="Your first name.."
+                        placeholder="First Name"
                         value={firstname}
                         onChange={(e) => setFirstname(e.target.value)}
+                        className="registration-input"
                         required
                     />
-
-                    <label htmlFor="lname">Last Name</label>
                     <input
                         type="text"
-                        id="lname"
-                        name="lastname"
-                        placeholder="Your last name.."
+                        placeholder="Last Name"
                         value={lastname}
                         onChange={(e) => setLastname(e.target.value)}
+                        className="registration-input"
                         required
                     />
-
-                    <label htmlFor="email">Email</label>
                     <input
                         type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Your email.."
+                        placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        className="registration-input"
                         required
                     />
-
-                    <label htmlFor="password">Password</label>
                     <input
                         type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Your password.."
+                        placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        className="registration-input"
                         required
                     />
-
-                    <input type="submit" value="Register" className="submit-button" />
+                    <button type="submit" className="registration-button">Register</button>
+                    <button
+                        type="button"
+                        onClick={() => navigate('/login')}
+                        className="registration-button registration-button-back"
+                    >
+                        Back to Login
+                    </button>
                 </form>
-                <button onClick={handleLogin} className="login-button">Login</button>
             </div>
         </div>
     );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './LoginPage.css';
 
 const LoginForm: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -11,7 +12,11 @@ const LoginForm: React.FC = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/v1/login', { email, password });
+            const response = await axios.post('/api/v1/persons/login', { email, password }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
             const personId = response.data.id;
             navigate(`/profile/${personId}`);
             setError(null);
