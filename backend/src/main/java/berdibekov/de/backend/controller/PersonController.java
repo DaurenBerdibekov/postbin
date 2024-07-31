@@ -3,6 +3,7 @@ package berdibekov.de.backend.controller;
 import berdibekov.de.backend.dto.ErrorGroupDTO;
 import berdibekov.de.backend.dto.MessageDTO;
 import berdibekov.de.backend.dto.PersonDTO;
+import berdibekov.de.backend.dto.LoginRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -76,4 +77,19 @@ public interface PersonController {
     @DeleteMapping("/{personId}")
     @ResponseStatus(HttpStatus.OK)
     void deletePerson(@PathVariable String personId);
+
+    @Operation(
+            summary = "Authenticate person by email and password",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Returns the authenticated person.",
+                            content = @Content(schema = @Schema(implementation = PersonDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+                    @ApiResponse(responseCode = "401", description = "Invalid email or password",
+                            content = @Content(schema = @Schema(implementation = ErrorGroupDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+                    @ApiResponse(responseCode = "500", description = "Server error",
+                            content = @Content(schema = @Schema(implementation = ErrorGroupDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
+            })
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    PersonDTO authenticatePerson(@RequestBody @ParameterObject LoginRequestDTO loginRequestDTO);
+
 }

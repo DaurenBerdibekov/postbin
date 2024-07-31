@@ -55,4 +55,8 @@ public class PersonService {
     public Person getOne(String personId) {
         return personRepository.findById(personId).orElseThrow(() -> new NotFoundException(NOT_FOUND_PERSON.formatted(personId)));
     }
+
+    public Person findByEmailAndPassword(String email, String password) {
+        return personRepository.findByEmailAndPassword(email, password).orElseThrow(() -> new NotFoundException(NOT_FOUND_PERSON));
+    }
 }

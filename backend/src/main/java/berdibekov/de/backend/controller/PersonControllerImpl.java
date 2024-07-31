@@ -1,5 +1,6 @@
 package berdibekov.de.backend.controller;
 
+import berdibekov.de.backend.dto.LoginRequestDTO;
 import berdibekov.de.backend.dto.PersonDTO;
 import berdibekov.de.backend.mapper.PersonDTOMapper;
 import berdibekov.de.backend.model.Person;
@@ -64,5 +65,14 @@ public class PersonControllerImpl implements PersonController{
         personService.deletePerson(personId);
 
         log.info("The person with id was deleted: {}", personId);
+    }
+
+    @Override
+    public PersonDTO authenticatePerson(LoginRequestDTO loginRequestDTO) {
+        log.info("Received request to authenticate person");
+
+        Person person = personService.findByEmailAndPassword(loginRequestDTO.email(), loginRequestDTO.password());
+
+        return personDTOMapper.toDTO(person, person.getId());
     }
 }
