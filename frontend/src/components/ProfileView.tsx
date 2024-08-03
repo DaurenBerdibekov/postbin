@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
 import './ProfileView.css'; // Импортируем CSS файл
 
-interface PersonDTO {
-    firstname: string;
-    lastname: string;
-    email: string;
-}
+const ProfileContent = lazy(() => import('./ProfileContent'));
 
 interface MessageDTO {
     id: string;
@@ -17,30 +13,31 @@ interface MessageDTO {
 
 const ProfileView: React.FC = () => {
     const { personId } = useParams<{ personId: string }>();
-    const [person, setPerson] = useState<PersonDTO | null>(null);
     const [messages, setMessages] = useState<MessageDTO[]>([]);
     const [editMessage, setEditMessage] = useState<MessageDTO | null>(null);
     const [viewMessage, setViewMessage] = useState<MessageDTO | null>(null);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchProfile = async () => {
-            try {
-                const personResponse = await axios.get(`/api/v1/persons/${personId}`);
-                setPerson(personResponse.data);
-
-                const messagesResponse = await axios.get(`/api/v1/persons/${personId}/messages/all`);
-                setMessages(messagesResponse.data);
-
+    // Функция для загрузки сообщений
+    const fetchMessages = async () => {
+        try {
+            const response = await axios.get(`/api/v1/persons/${personId}/messages/all`);
+            if (response.data.length === 0) {
+                setError('No messages found.');
+            } else {
+                setMessages(response.data);
                 setError(null);
-            } catch (error) {
-                setError('No messages found. Try to create new one.');
-                console.error(error);
             }
-        };
+        } catch (error) {
+            setError('You do not have any messages. Try to create one.');
+            console.error(error);
+        }
+    };
 
-        fetchProfile();
+    // Вызов функции для загрузки сообщений при монтировании компонента
+    React.useEffect(() => {
+        fetchMessages();
     }, [personId]);
 
     const handleDeleteMessage = async (messageId: string) => {
@@ -79,10 +76,6 @@ const ProfileView: React.FC = () => {
         }
     };
 
-    const handleNewMessage = () => {
-        navigate(`/newMessage/${personId}`);
-    };
-
     const handleLogout = () => {
         navigate('/login');
     };
@@ -105,20 +98,9 @@ const ProfileView: React.FC = () => {
     return (
         <div className="profile-view-container">
             <div className="profile-view-content">
-                <div className="profile-info">
-                    {person ? (
-                        <div>
-                            <h2 className="profile-title">{person.firstname} {person.lastname}</h2>
-                            <p className="profile-email">Email: {person.email}</p>
-                            <div className="profile-buttons">
-                                <button className="profile-button" onClick={handleNewMessage}>New Message</button>
-                                <button className="profile-button" onClick={handleLogout}>Logout</button>
-                            </div>
-                        </div>
-                    ) : (
-                        <p className="loading">Loading...</p>
-                    )}
-                </div>
+                <Suspense fallback={<p>Loading...</p>}>
+                    <ProfileContent/>
+                </Suspense>
                 <div className="messages-list-container">
                     <h3 className="messages-title">Messages</h3>
                     {error && <p className="error">{error}</p>}
@@ -129,9 +111,15 @@ const ProfileView: React.FC = () => {
                                     <h4 className="message-subject">{message.subject}</h4>
                                     <p className="message-snippet">{message.content.slice(0, 500)}</p>
                                     <div className="message-buttons">
-                                        <button className="message-button" onClick={() => openViewMessage(message)}>Read</button>
-                                        <button className="message-button" onClick={() => handleEditMessage(message)}>Edit</button>
-                                        <button className="message-button" onClick={() => handleDeleteMessage(message.id)}>Delete</button>
+                                        <button className="message-button"
+                                                onClick={() => openViewMessage(message)}>Read
+                                        </button>
+                                        <button className="message-button"
+                                                onClick={() => handleEditMessage(message)}>Edit
+                                        </button>
+                                        <button className="message-button"
+                                                onClick={() => handleDeleteMessage(message.id)}>Delete
+                                        </button>
                                     </div>
                                 </div>
                             </li>
@@ -143,8 +131,11 @@ const ProfileView: React.FC = () => {
                             <h4 className="message-subject">{viewMessage.subject}</h4>
                             <p className="message-content">{viewMessage.content}</p>
                             <div className="edit-buttons">
-                                <button className="message-button" onClick={() => handleEditMessage(viewMessage)}>Edit</button>
-                                <button className="message-button" onClick={() => handleDeleteMessage(viewMessage.id)}>Delete</button>
+                                <button className="message-button" onClick={() => handleEditMessage(viewMessage)}>Edit
+                                </button>
+                                <button className="message-button"
+                                        onClick={() => handleDeleteMessage(viewMessage.id)}>Delete
+                                </button>
                                 <button className="message-button" onClick={closeViewMessage}>Close</button>
                             </div>
                         </div>
@@ -172,6 +163,9 @@ const ProfileView: React.FC = () => {
                         </div>
                     )}
                 </div>
+            </div>
+            <div className="profile-actions">
+                <button className="profile-button-logout" onClick={handleLogout}>Logout</button>
             </div>
         </div>
     );

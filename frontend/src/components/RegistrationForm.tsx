@@ -8,11 +8,38 @@ const RegistrationForm: React.FC = () => {
     const [lastname, setLastname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordError, setPasswordError] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
+    const validatePassword = (password: string): boolean => {
+        const minLength = 8;
+        const hasUpperCase = /[A-Z]/.test(password);
+        const hasNumber = /\d/.test(password);
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+        return password.length >= minLength && hasUpperCase && hasNumber && hasSpecialChar;
+    };
+
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newPassword = e.target.value;
+        setPassword(newPassword);
+
+        if (!validatePassword(newPassword)) {
+            setPasswordError('Password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.');
+        } else {
+            setPasswordError(null);
+        }
+    };
+
     const handleRegistration = async (event: React.FormEvent) => {
         event.preventDefault();
+
+        if (passwordError) {
+            setError('Please fix the errors before submitting.');
+            return;
+        }
+
         try {
             await axios.post('/api/v1/persons', { firstname, lastname, email, password });
             navigate('/login');
@@ -56,10 +83,11 @@ const RegistrationForm: React.FC = () => {
                         type="password"
                         placeholder="Password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={handlePasswordChange}
                         className="registration-input"
                         required
                     />
+                    {passwordError && <p className="error">{passwordError}</p>}
                     <button type="submit" className="registration-button">Register</button>
                     <button
                         type="button"
