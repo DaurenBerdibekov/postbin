@@ -12,7 +12,6 @@ interface PersonDTO {
 const ProfileContent: React.FC = () => {
     const { personId } = useParams<{ personId: string }>();
     const [person, setPerson] = useState<PersonDTO | null>(null);
-    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,9 +19,7 @@ const ProfileContent: React.FC = () => {
             try {
                 const personResponse = await axios.get(`/api/v1/persons/${personId}`);
                 setPerson(personResponse.data);
-                setError(null);
             } catch (error) {
-                setError('Error fetching profile data. Please try again.');
                 console.error(error);
             }
         };
