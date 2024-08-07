@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -58,5 +59,43 @@ public class PersonService {
 
     public Person findByEmailAndPassword(String email, String password) {
         return personRepository.findByEmailAndPassword(email, password).orElseThrow(() -> new NotFoundException(NOT_FOUND_PERSON));
+    }
+
+
+    @Transactional
+    public void addFriendToPerson(String personId, String friendPersonId) {
+
+        log.info("Adding a friend to person with id: {}", personId);
+
+        Person existingPerson = personRepository.findById(personId).orElseThrow(() -> new NotFoundException("Person not found"));
+        Person friend = personRepository.findById(friendPersonId).orElseThrow(() -> new NotFoundException("Friend not found"));
+
+        // check if friend already exists
+        if (existingPerson.getFriends().contains(friend)) {
+            log.info("Friend with id: {} is already a friend of person with id: {}", friendPersonId, personId);
+        }
+
+        // add friend to person
+        existingPerson.getFriends().add(friend);
+
+        personRepository.save(existingPerson);
+    }
+
+    @Transactional(readOnly = true)
+    public Set<Person> getAllFriendsOfPerson(String personId) {
+        Set<Person> person = personRepository.findFriendsByPersonId(personId);
+
+        if(person.isEmpty()){
+            log.info("Person with id: {} don't have any friends", personId);
+        }
+
+        return person;
+    }
+
+    public Person findPersonByFirstnameAndLastname(String firstname, String lastname) {
+
+        return personRepository.findByFirstnameContainingIgnoreCaseAndLastnameContainingIgnoreCase(firstname, lastname)
+                .orElseThrow(() -> new NotFoundException(String.format("No persons found with firstname containing '%s' and lastname containing '%s'", firstname, lastname)));
+
     }
 }
