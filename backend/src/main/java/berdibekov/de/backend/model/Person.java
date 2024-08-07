@@ -9,9 +9,11 @@ import lombok.RequiredArgsConstructor;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-@Entity
+@Entity(name = "person")
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -40,6 +42,17 @@ public class Person implements Serializable {
     @NotNull
     private LocalDateTime createdAt;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Message> messages;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "person_friends",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "friends_id")
+    )
+    private Set<Person> friends = new HashSet<>();
+
+    @ManyToMany(mappedBy = "friends", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Person> friendsOf = new HashSet<>();
 }
