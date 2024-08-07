@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RequestMapping(value = PersonController.REST_URL)
 public interface PersonController {
 
@@ -92,4 +94,22 @@ public interface PersonController {
     @ResponseStatus(HttpStatus.OK)
     PersonDTO authenticatePerson(@RequestBody @ParameterObject LoginRequestDTO loginRequestDTO);
 
+    @Operation(
+            summary = "Add a friend to person",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Friend was added.",
+                            content = @Content(schema = @Schema(implementation = PersonDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
+                    @ApiResponse(responseCode = "500", description = "Server error",
+                            content = @Content(schema = @Schema(implementation = ErrorGroupDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE))
+            })
+    @PutMapping(value = "/{personId}/friend/{friendPersonId}/addFriend")
+    @ResponseStatus(HttpStatus.OK)
+    void addFriendToPerson(@PathVariable String personId, @PathVariable String friendPersonId);
+
+    @GetMapping(value = "/{personId}/friends")
+    @ResponseStatus(HttpStatus.OK)
+    Set<PersonDTO> getAllFriendsOfPerson(@PathVariable String personId);
+
+    @GetMapping("/search")
+    PersonDTO findFriend(@RequestParam String firstname, @RequestParam String lastname);
 }

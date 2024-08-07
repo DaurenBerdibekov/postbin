@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Set;
+
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -73,6 +75,35 @@ public class PersonControllerImpl implements PersonController{
 
         Person person = personService.findByEmailAndPassword(loginRequestDTO.email(), loginRequestDTO.password());
 
+        return personDTOMapper.toDTO(person, person.getId());
+    }
+
+    @Override
+    public void addFriendToPerson(String personId, String friendPersonId) {
+        log.info("Received a request to add a friend to person");
+
+        personService.addFriendToPerson(personId, friendPersonId);
+
+        log.info("Friend was successfully added");
+    }
+
+    @Override
+    public Set<PersonDTO> getAllFriendsOfPerson(String personId) {
+        log.info("Received a request to get all friends of person");
+
+        Set<Person> persons = personService.getAllFriendsOfPerson(personId);
+
+        return personDTOMapper.toDTOs(persons);
+    }
+
+    @Override
+    public PersonDTO findFriend(String firstname, String lastname) {
+        log.info("Received a request to get person by firstname and lastname : {} {}", firstname, lastname);
+
+        // get one person
+        Person person = personService.findPersonByFirstnameAndLastname(firstname, lastname);
+
+        // map back to the DTO and return
         return personDTOMapper.toDTO(person, person.getId());
     }
 }
