@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import './ProfileView.css'; // Импортируем CSS файл
+import './ProfileContent.css'; // Импортируем CSS файл
 
-interface PersonDTO {
+interface FriendDTO {
     firstname: string;
     lastname: string;
     email: string;
@@ -11,7 +11,8 @@ interface PersonDTO {
 
 const ProfileContent: React.FC = () => {
     const { personId } = useParams<{ personId: string }>();
-    const [person, setPerson] = useState<PersonDTO | null>(null);
+    const [person, setPerson] = useState<{ firstname: string; lastname: string; email: string } | null>(null);
+    const [friends, setFriends] = useState<FriendDTO[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,6 +20,9 @@ const ProfileContent: React.FC = () => {
             try {
                 const personResponse = await axios.get(`/api/v1/persons/${personId}`);
                 setPerson(personResponse.data);
+
+                const friendsResponse = await axios.get(`/api/v1/persons/${personId}/friends`);
+                setFriends(friendsResponse.data);
             } catch (error) {
                 console.error(error);
             }
@@ -41,6 +45,21 @@ const ProfileContent: React.FC = () => {
             <p className="profile-email">Email: {person.email}</p>
             <div className="profile-actions">
                 <button className="profile-button" onClick={handleNewMessage}>New Message</button>
+            </div>
+
+            <div className="friends-list">
+                <h3>Friends</h3>
+                {friends.length > 0 ? (
+                    <ul>
+                        {friends.map((friend, index) => (
+                            <li key={index} className="friend-item">
+                                <p>{friend.firstname} {friend.lastname}</p>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>No friends found.</p>
+                )}
             </div>
         </div>
     );

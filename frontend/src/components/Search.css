@@ -1,0 +1,57 @@
+.search-add-friend {
+    position: fixed; /* Фиксируем элемент относительно окна браузера */
+    top: 5px;       /* Отступ сверху от верхнего края */
+    right: 5px;     /* Отступ справа от правого края */
+    width: 300px;    /* Ширина боковой панели */
+    padding: 20px;  /* Внутренние отступы для удобства */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff; /* Фон белый для лучшего контраста */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для визуального отделения */
+    z-index: 1000; /* Повышаем z-index, чтобы элемент был поверх других */
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-button {
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.search-result-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.add-friend-button {
+    padding: 8px;
+    border: none;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}

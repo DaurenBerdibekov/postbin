@@ -26,7 +26,7 @@ const CreateMessageForm: React.FC = () => {
 
     return (
         <div className="new-message-container">
-            <div className="profile-info">
+            <div className="new-message-info">
                 <h2 className="profile-title">Create New Message</h2>
                 <form onSubmit={handleSubmit} className="new-message-form">
                     <div className="form-group">

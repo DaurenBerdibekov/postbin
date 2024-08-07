@@ -22,7 +22,7 @@ body {
 .profile-content {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 20%;
     height: 100%;
 }
 
@@ -38,11 +38,11 @@ body {
 }
 
 .messages-list-container {
-    width: 90%;
-    padding: 20px;
+    width: 58.5%;
+    padding-right: 5px;
     background-color: #f9f9f9;
-    box-sizing: border-box;
-    overflow-y: auto;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .profile-title {
@@ -96,6 +96,7 @@ body {
 .messages-title {
     font-size: 28px;
     margin-bottom: 10px;
+    margin-left: 13px;
 }
 
 .messages-list {
@@ -168,6 +169,12 @@ body {
     margin-bottom: 10px;
 }
 
+.search-add-friend{
+    align-content: center;
+    width: 500px;
+    height: 300px;
+}
+
 .loading {
     text-align: center;
     font-size: 18px;
@@ -191,6 +198,7 @@ h2 {
 }
 
 h3 {
+    text-align: center;
     color: #1a1a1a;
 }
 

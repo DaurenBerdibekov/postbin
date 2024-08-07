@@ -1,7 +1,8 @@
-import React, { lazy, Suspense, useState } from 'react';
+import React, { lazy, Suspense, useState, ChangeEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import './ProfileView.css'; // Импортируем CSS файл
+import './ProfileView.css';
+import Search from "./Search.tsx"; // Импортируем CSS файл
 
 const ProfileContent = lazy(() => import('./ProfileContent'));
 
@@ -89,7 +90,7 @@ const ProfileView: React.FC = () => {
         setViewMessage(null);
     };
 
-    const handleChangeEditMessage = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChangeEditMessage = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         if (editMessage) {
             setEditMessage({ ...editMessage, [e.target.name]: e.target.value });
         }
@@ -101,6 +102,7 @@ const ProfileView: React.FC = () => {
                 <Suspense fallback={<p>Loading...</p>}>
                     <ProfileContent/>
                 </Suspense>
+
                 <div className="messages-list-container">
                     <h3 className="messages-title">Messages</h3>
                     {error && <p className="error">{error}</p>}
@@ -163,10 +165,14 @@ const ProfileView: React.FC = () => {
                         </div>
                     )}
                 </div>
+                <Suspense fallback={<p>Loading...</p>}>
+                    <Search/>
+                </Suspense>
             </div>
             <div className="profile-actions">
                 <button className="profile-button-logout" onClick={handleLogout}>Logout</button>
             </div>
+
         </div>
     );
 };
