@@ -4,6 +4,7 @@ import RegistrationForm from './components/RegistrationForm';
 import LoginForm from './components/LoginPage';
 import ProfileView from './components/ProfileView';
 import CreateMessageForm from './components/NewMessage';
+import FriendProfileView from "./components/FriendProfileView.tsx";
 
 const App: React.FC = () => {
     return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
                 <Route path="/profile/:personId" element={<ProfileView />} />
                 <Route path="/newMessage/:personId" element={<CreateMessageForm />} />
                 <Route path="/" element={<Navigate to="/login" />} />
+                <Route path="/profile/:personId/friend/:friendId" element={<FriendProfileView />} />
             </Routes>
         </Router>
     );

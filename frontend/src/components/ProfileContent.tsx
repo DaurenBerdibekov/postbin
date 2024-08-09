@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
-import './ProfileContent.css'; // Импортируем CSS файл
+import {Link, useNavigate, useParams} from 'react-router-dom';
 
 interface FriendDTO {
+    id : string
     firstname: string;
     lastname: string;
     email: string;
@@ -53,7 +53,9 @@ const ProfileContent: React.FC = () => {
                     <ul>
                         {friends.map((friend, index) => (
                             <li key={index} className="friend-item">
-                                <p>{friend.firstname} {friend.lastname}</p>
+                                <Link to={`/profile/${personId}/friend/${friend.id}`}>
+                                    {friend.firstname} {friend.lastname}
+                                </Link>
                             </li>
                         ))}
                     </ul>

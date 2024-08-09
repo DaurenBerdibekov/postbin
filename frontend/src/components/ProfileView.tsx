@@ -20,7 +20,6 @@ const ProfileView: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    // Функция для загрузки сообщений
     const fetchMessages = async () => {
         try {
             const response = await axios.get(`/api/v1/persons/${personId}/messages/all`);
@@ -51,7 +50,7 @@ const ProfileView: React.FC = () => {
             await axios.delete(`/api/v1/persons/${personId}/messages/${messageId}`);
             setMessages(messages.filter(message => message.id !== messageId));
             setError(null);
-            setViewMessage(null); // Закрываем просмотр сообщения после удаления
+            setViewMessage(null);
         } catch (error) {
             setError('Error deleting message. Please try again.');
             console.error(error);
@@ -60,7 +59,7 @@ const ProfileView: React.FC = () => {
 
     const handleEditMessage = (message: MessageDTO) => {
         setEditMessage(message);
-        setViewMessage(null); // Закрываем просмотр сообщения при редактировании
+        setViewMessage(null);
     };
 
     const handleUpdateMessage = async () => {
@@ -83,7 +82,7 @@ const ProfileView: React.FC = () => {
 
     const openViewMessage = (message: MessageDTO) => {
         setViewMessage(message);
-        setEditMessage(null); // Закрываем редактирование сообщения при просмотре
+        setEditMessage(null);
     };
 
     const closeViewMessage = () => {
