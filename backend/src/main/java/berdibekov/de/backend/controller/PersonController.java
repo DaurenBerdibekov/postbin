@@ -50,6 +50,10 @@ public interface PersonController {
     @ResponseStatus(value = HttpStatus.OK)
     PersonDTO getPerson(@PathVariable String personId);
 
+    @GetMapping("/{personId}/friend/{friendId}")
+    @ResponseStatus(HttpStatus.OK)
+    PersonDTO getFriendOfPerson(@PathVariable String personId, @PathVariable String friendId);
+
     @Operation(
             summary = "Update person",
             responses = {

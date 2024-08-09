@@ -106,4 +106,15 @@ public class PersonControllerImpl implements PersonController{
         // map back to the DTO and return
         return personDTOMapper.toDTO(person, person.getId());
     }
+
+    @Override
+    public PersonDTO getFriendOfPerson(String personId, String friendId) {
+        log.info("Received a request to get a friend of person by id: : {}", personId);
+
+        // get one person
+        Person person = personService.getFriend(friendId);
+
+        // map back to the DTO and return
+        return personDTOMapper.toDTO(person, personId);
+    }
 }

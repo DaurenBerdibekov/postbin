@@ -52,6 +52,18 @@ public class MessageService {
         return messages;
     }
 
+    @Transactional(readOnly = true)
+    public List<Message> getAllMessagesOfPersonsFriend(String friendId){
+        List<Message> messages = messageRepository.findAllByPersonId(friendId);
+
+        if (messages.isEmpty()){
+            log.info("Friend with id: {} does not have any messages", friendId);
+            throw new IllegalArgumentException();
+        }
+
+        return messages;
+    }
+
     @Transactional
     public Message updateMessage(Message message, String personId, String messageId) {
         log.info("Updating message with id: {} for person with id: {}", messageId, personId);

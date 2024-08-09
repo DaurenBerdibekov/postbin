@@ -57,6 +57,11 @@ public class PersonService {
         return personRepository.findById(personId).orElseThrow(() -> new NotFoundException(NOT_FOUND_PERSON.formatted(personId)));
     }
 
+    @Transactional(readOnly = true)
+    public Person getFriend(String personId) {
+        return personRepository.findById(personId).orElseThrow(() -> new NotFoundException(NOT_FOUND_PERSON.formatted(personId)));
+    }
+
     public Person findByEmailAndPassword(String email, String password) {
         return personRepository.findByEmailAndPassword(email, password).orElseThrow(() -> new NotFoundException(NOT_FOUND_PERSON));
     }
