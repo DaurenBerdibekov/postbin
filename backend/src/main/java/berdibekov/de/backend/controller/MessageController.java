@@ -93,4 +93,8 @@ public interface MessageController {
     @DeleteMapping(value = "/{messageId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     void deleteMessage(@PathVariable String personId, @PathVariable String messageId);
+
+    @GetMapping(value = "/friend/{friendId}")
+    @ResponseStatus(HttpStatus.OK)
+    List<MessageDTO> getMessagesOfPersonsFriend(@PathVariable String personId, @PathVariable String friendId);
 }

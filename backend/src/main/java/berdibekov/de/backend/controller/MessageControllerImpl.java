@@ -83,4 +83,14 @@ public class MessageControllerImpl implements MessageController{
 
         log.info("Message with id {} was deleted", messageId);
     }
+
+    @Override
+    public List<MessageDTO> getMessagesOfPersonsFriend(String personId, String friendId) {
+
+        log.info("Received a request to get friend messages of the person with id {}", personId);
+
+        List<Message> messages = messageService.getAllMessagesOfPersonsFriend(friendId);
+
+        return messageDTOMapper.toMessagesDTOs(messages);
+    }
 }
