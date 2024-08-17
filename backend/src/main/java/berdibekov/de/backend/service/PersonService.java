@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -55,6 +56,10 @@ public class PersonService {
 
     public Person getOne(String personId) {
         return personRepository.findById(personId).orElseThrow(() -> new NotFoundException(NOT_FOUND_PERSON.formatted(personId)));
+    }
+
+    public List<Person> getAllPersons() {
+        return personRepository.findAll();
     }
 
     @Transactional(readOnly = true)
