@@ -1,5 +1,4 @@
 package berdibekov.de.backend.junit;
-import berdibekov.de.backend.exception.NotFoundException;
 import berdibekov.de.backend.model.Person;
 import berdibekov.de.backend.repository.PersonRepository;
 import berdibekov.de.backend.service.PersonService;
@@ -30,7 +29,6 @@ class PersonServiceTest {
     @InjectMocks
     private PersonService personService;
 
-    private final String NOT_FOUND_PERSON = "Person with id '%s' does not exist";
     private final String personId = String.valueOf(UUID.randomUUID());
     private Person person;
 

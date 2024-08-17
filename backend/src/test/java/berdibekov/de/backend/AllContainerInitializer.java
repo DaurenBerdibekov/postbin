@@ -23,7 +23,6 @@ public class AllContainerInitializer implements ApplicationContextInitializer<Co
                 .withDatabaseName("postbin")
                 .withUsername("postgres")
                 .withPassword("user")
-                // .withInitScript("db/init.sql")
                 .withReuse(true)
                 .start();
 

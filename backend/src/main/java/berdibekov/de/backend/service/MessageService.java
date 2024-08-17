@@ -23,7 +23,6 @@ public class MessageService {
 
     @Transactional
     public Message createMessage(String personId, Message message){
-
         message.setCreatedAt(util.getLocalDateTime());
         message.setId(util.generateRandomUUID());
 
@@ -35,10 +34,8 @@ public class MessageService {
     }
 
     public Message getOne(String messageId, String personId) {
-
         return messageRepository.findByIdAndPersonId(messageId, personId)
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND_MESSAGE.formatted(messageId)));
-
     }
 
     public List<Message> getAll(String personId) {

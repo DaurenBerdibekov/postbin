@@ -3,7 +3,6 @@ package berdibekov.de.backend.controller;
 import berdibekov.de.backend.dto.LoginRequestDTO;
 import berdibekov.de.backend.dto.PersonDTO;
 import berdibekov.de.backend.mapper.PersonDTOMapper;
-import berdibekov.de.backend.model.Message;
 import berdibekov.de.backend.model.Person;
 import berdibekov.de.backend.service.PersonService;
 import lombok.RequiredArgsConstructor;

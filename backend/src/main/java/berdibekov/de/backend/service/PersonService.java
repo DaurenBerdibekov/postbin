@@ -74,7 +74,6 @@ public class PersonService {
 
     @Transactional
     public void addFriendToPerson(String personId, String friendPersonId) {
-
         log.info("Adding a friend to person with id: {}", personId);
 
         Person existingPerson = personRepository.findById(personId).orElseThrow(() -> new NotFoundException("Person not found"));
@@ -103,9 +102,7 @@ public class PersonService {
     }
 
     public Person findPersonByFirstnameAndLastname(String firstname, String lastname) {
-
         return personRepository.findByFirstnameContainingIgnoreCaseAndLastnameContainingIgnoreCase(firstname, lastname)
                 .orElseThrow(() -> new NotFoundException(String.format("No persons found with firstname containing '%s' and lastname containing '%s'", firstname, lastname)));
-
     }
 }

@@ -13,8 +13,6 @@ public interface MessageDTOMapper {
 
     Message toModel(MessageDTO messageDTO);
 
-    List<Message> toMessages(List<MessageDTO> messageDTOS);
-
     List<MessageDTO> toMessagesDTOs(List<Message> messages);
 
 }

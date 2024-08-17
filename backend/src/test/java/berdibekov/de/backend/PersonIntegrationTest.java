@@ -99,9 +99,6 @@ class PersonIntegrationTest {
         assertEquals(expectedPerson.firstname(), actualPerson.firstname());
         assertEquals(expectedPerson.lastname(), actualPerson.lastname());
         assertEquals(expectedPerson.email(), actualPerson.email());
-
-        // TODO implement password change
-        //assertEquals(expectedPerson.password(), actualPerson.password());
     }
 
     @Test
