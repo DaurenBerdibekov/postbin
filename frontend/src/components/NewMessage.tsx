@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import './NewMessage.css';
+import '../style/NewMessage.css';
 
 const CreateMessageForm: React.FC = () => {
     const { personId } = useParams<{ personId: string }>();
@@ -27,7 +27,7 @@ const CreateMessageForm: React.FC = () => {
     return (
         <div className="new-message-container">
             <div className="new-message-info">
-                <h2 className="profile-title">Create New Message</h2>
+                <h2 className="profile-title">Create new message</h2>
                 <form onSubmit={handleSubmit} className="new-message-form">
                     <div className="form-group">
                         <label htmlFor="subject" className="form-label">Subject:</label>
@@ -54,13 +54,13 @@ const CreateMessageForm: React.FC = () => {
                     </div>
                     {error && <p className="error">{error}</p>}
                     <div className="form-buttons">
-                        <button type="submit" className="form-button">Create Message</button>
+                        <button type="submit" className="form-button">Create message</button>
                         <button
                             type="button"
                             onClick={() => navigate(`/profile/${personId}`)}
                             className="form-button form-button-back"
                         >
-                            Back to Profile
+                            Back to profile
                         </button>
                     </div>
                 </form>

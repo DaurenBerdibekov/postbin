@@ -1,8 +1,8 @@
 import React, { lazy, Suspense, useState, ChangeEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import './ProfileView.css';
-import Search from "./Search.tsx"; // Импортируем CSS файл
+import '../style/ProfileView.css';
+import Search from "./Search.tsx";
 
 const ProfileContent = lazy(() => import('./ProfileContent'));
 
@@ -35,7 +35,6 @@ const ProfileView: React.FC = () => {
         }
     };
 
-    // Вызов функции для загрузки сообщений при монтировании компонента
     React.useEffect(() => {
         fetchMessages();
     }, [personId]);

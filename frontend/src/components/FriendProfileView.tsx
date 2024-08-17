@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import './ProfileView.css';
+import '../style/FriendProfileView.css';
 
 interface MessageDTO {
     id: string;
@@ -30,7 +30,6 @@ const FriendProfileView: React.FC = () => {
         }
     }, [personId]);
 
-    // fetch info about friend
     const fetchPerson = async () => {
         try {
             const response = await axios.get(`/api/v1/persons/${personId}/friend/${friendId}`);
@@ -41,7 +40,6 @@ const FriendProfileView: React.FC = () => {
         }
     };
 
-    // fetch messages of friend
     const fetchMessages = async () => {
         try {
             const response = await axios.get(`/api/v1/persons/${personId}/messages/friend/${friendId}`);
@@ -63,7 +61,7 @@ const FriendProfileView: React.FC = () => {
     }, [friendId, personId]);
 
     const handleBackToMe = () => {
-        const storedPersonId = localStorage.getItem('personId'); // Извлекаем personId из localStorage
+        const storedPersonId = localStorage.getItem('personId');
         if (storedPersonId) {
             navigate(`/profile/${storedPersonId}`);
         } else {
@@ -118,7 +116,7 @@ const FriendProfileView: React.FC = () => {
                             <h3>Message Details</h3>
                             <h4 className="message-subject">{viewMessage.subject}</h4>
                             <p className="message-content">{viewMessage.content}</p>
-                            <div className="edit-buttons">
+                            <div className="close-button">
                                 <button className="message-button" onClick={closeViewMessage}>
                                     Close
                                 </button>

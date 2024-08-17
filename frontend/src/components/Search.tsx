@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
-import './Search.css';
+import '../style/Search.css';
 
 interface PersonDTO {
     id: string;
@@ -14,8 +14,8 @@ const ProfileView: React.FC = () => {
     const { personId } = useParams<{ personId: string }>();
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [searchResults, setSearchResults] = useState<PersonDTO[]>([]);
+    const navigate = useNavigate(); // Инициализируем useNavigate
 
-    // Функция для поиска пользователей
     const searchPersons = async () => {
         const [firstname, lastname] = searchTerm.split(' ');
         try {
@@ -26,7 +26,6 @@ const ProfileView: React.FC = () => {
         }
     };
 
-    // Функция для добавления в друзья
     const addFriend = async (friendId: string) => {
         try {
             await axios.put(`/api/v1/persons/${personId}/friend/${friendId}/addFriend`);
@@ -45,36 +44,43 @@ const ProfileView: React.FC = () => {
         searchPersons();
     };
 
+    const goToAllPersons = () => {
+        navigate(`/profile/${personId}/allPersons`);
+    };
+
     return (
-            <div className="search-add-friend">
-                <h3>Search and Add Friend</h3>
-                <form onSubmit={handleSearchSubmit} className="search-form">
-                    <input
-                        type="text"
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                        className="search-input"
-                        placeholder="Search by firstname or lastname"
-                    />
-                    <button type="submit" className="search-button">Search</button>
-                </form>
-                {searchResults.length > 0 && (
-                    <ul className="search-results">
-                        {searchResults.map((person) => (
-                            <li key={person.id} className="search-result-item">
-                                <p>{person.firstname} {person.lastname}</p>
-                                <p>Email: {person.email}</p>
-                                <button
-                                    className="add-friend-button"
-                                    onClick={() => addFriend(person.id)}
-                                >
-                                    Add to friends
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
+        <div className="search-add-friend">
+            <h3>Search and Add Friend</h3>
+            <form onSubmit={handleSearchSubmit} className="search-form">
+                <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    className="search-input"
+                    placeholder="Search by firstname or lastname"
+                />
+                <button type="submit" className="search-button">Search</button>
+            </form>
+            {searchResults.length > 0 && (
+                <ul className="search-results">
+                    {searchResults.map((person) => (
+                        <li key={person.id} className="search-result-item">
+                            <p>{person.firstname} {person.lastname}</p>
+                            <p>Email: {person.email}</p>
+                            <button
+                                className="add-friend-button"
+                                onClick={() => addFriend(person.id)}
+                            >
+                                Add to friends
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            )}
+            <button onClick={goToAllPersons} className="to-all-persons-button">
+                To all persons
+            </button>
+        </div>
 
     );
 };

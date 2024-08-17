@@ -5,6 +5,7 @@ import LoginForm from './components/LoginPage';
 import ProfileView from './components/ProfileView';
 import CreateMessageForm from './components/NewMessage';
 import FriendProfileView from "./components/FriendProfileView.tsx";
+import PersonListView from "./components/PersonListView.tsx";
 
 const App: React.FC = () => {
     return (
@@ -16,6 +17,7 @@ const App: React.FC = () => {
                 <Route path="/newMessage/:personId" element={<CreateMessageForm />} />
                 <Route path="/" element={<Navigate to="/login" />} />
                 <Route path="/profile/:personId/friend/:friendId" element={<FriendProfileView />} />
+                <Route path="/profile/:personId/allPersons" element={<PersonListView />} />
             </Routes>
         </Router>
     );
