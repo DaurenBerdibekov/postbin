@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RequestMapping(value = PersonController.REST_URL)
@@ -49,6 +50,10 @@ public interface PersonController {
     @GetMapping(value = "/{personId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.OK)
     PersonDTO getPerson(@PathVariable String personId);
+
+    @GetMapping(value = "/{personId}/allPersons", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    List<PersonDTO> getAllPersons(@PathVariable String personId);
 
     @GetMapping("/{personId}/friend/{friendId}")
     @ResponseStatus(HttpStatus.OK)

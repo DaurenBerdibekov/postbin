@@ -3,6 +3,7 @@ package berdibekov.de.backend.controller;
 import berdibekov.de.backend.dto.LoginRequestDTO;
 import berdibekov.de.backend.dto.PersonDTO;
 import berdibekov.de.backend.mapper.PersonDTOMapper;
+import berdibekov.de.backend.model.Message;
 import berdibekov.de.backend.model.Person;
 import berdibekov.de.backend.service.PersonService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -42,6 +44,16 @@ public class PersonControllerImpl implements PersonController{
 
         // map back to the DTO and return
         return personDTOMapper.toDTO(person, personId);
+    }
+
+    @Override
+    public List<PersonDTO> getAllPersons(String personId) {
+        log.info("Received a request to get all persons inside of profile with id: {}", personId);
+
+        // get all person of a person
+        List<Person> persons = personService.getAllPersons();
+
+        return personDTOMapper.toDTOs(persons);
     }
 
     @Override
