@@ -1,0 +1,144 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-view-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.profile-view-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    .h2 {: 10 px
+    }
+}
+
+.messages-list-container {
+    width: 58.5%;
+    padding-right: 5px;
+    background-color: #f9f9f9;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.profile-action {
+    padding: 15px;
+}
+
+.profile-button-logout {
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 10px;
+    background-color: blue;
+    color: white;
+    margin-left: 30px;
+}
+
+.profile-button:hover {
+    background-color: #45a049;
+}
+
+.messages-title {
+    font-size: 28px;
+    margin-bottom: 10px;
+    margin-left: 13px;
+}
+
+.messages-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.message-item {
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.message-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-subject {
+    font-size: 20px;
+    margin: 0;
+}
+
+.message-snippet {
+    font-size: 16px;
+    margin: 0;
+    color: #555;
+}
+
+.message-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.message-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #008cba;
+    color: white;
+}
+
+.message-button:hover {
+    background-color: #007bb5;
+}
+
+.message-details {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.loading {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+}
+
+.error {
+    color: red;
+}
+
+p {
+    margin-left: 20px;
+    color: #1a1a1a;
+}
+
+h1 {
+    color: #1a1a1a;
+}
+
+h2 {
+    margin-left: 20px;
+    align-content: center;
+    color: #1a1a1a;
+}
+
+h3 {
+    text-align: center;
+    color: #1a1a1a;
+}
+
+h4 {
+    color: #1a1a1a;
+}

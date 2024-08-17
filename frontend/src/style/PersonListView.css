@@ -1,0 +1,106 @@
+.person-list-view {
+    margin: 10px;
+    width: 80vw;
+    height: 80vb;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+.header {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.person-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+.person-table th, .person-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.person-table th {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.person-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.person-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.add-friend-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.add-friend-button:hover {
+    background-color: #0056b3;
+}
+
+.loading, .error {
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.error {
+    color: #d9534f;
+}
+
+td{
+    color: black;
+}
+
+@media (max-width: 768px) {
+    .person-table th, .person-table td {
+        font-size: 14px;
+        padding: 8px;
+        color: black;
+    }
+
+    .search-input {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .person-table th, .person-table td {
+        font-size: 12px;
+        padding: 6px;
+        color: black;
+    }
+
+    .search-input {
+        font-size: 12px;
+        padding: 6px;
+    }
+}

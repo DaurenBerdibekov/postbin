@@ -17,6 +17,8 @@ body {
     flex-direction: row;
     width: 100%;
     height: 100%;
+    .h2 {: 10 px
+    }
 }
 
 .profile-content {
@@ -90,7 +92,7 @@ body {
 }
 
 .profile-button-logout {
-    margin-bottom: 10px; /* Добавление небольшого отступа снизу */
+    margin-bottom: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;

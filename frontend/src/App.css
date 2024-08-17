@@ -1,4 +1,3 @@
-/* Общие стили для всего приложения */
 html, body {
   height: 100%;
   margin: 0;
@@ -11,7 +10,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* Убирает прокрутку, если не требуется */
+  overflow: hidden;
 }
 
 .App {
@@ -23,11 +22,10 @@ body {
   padding: 20px;
 }
 
-/* Стили для профиля пользователя и сообщений */
 .profile-view {
   width: 100%;
   height: 100%;
-  max-width: 1200px; /* Можно установить максимальную ширину, если требуется */
+  max-width: 1200px;
   display: flex;
   flex-direction: row;
   gap: 20px;
@@ -42,20 +40,20 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  z-index: 10; /* Обеспечивает, что информация пользователя всегда сверху */
-  width: 300px; /* Можно настроить ширину */
+  z-index: 10;
+  width: 300px;
 }
 
 .message-section {
-  margin-left: 340px; /* Оставляем место для профиля */
+  margin-left: 340px;
   background: #333;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  width: calc(100% - 340px); /* Ширина сообщения раздела для заполнения оставшегося пространства */
-  height: calc(100% - 40px); /* Высота сообщения раздела для заполнения оставшегося пространства, учитывая отступы */
+  width: calc(100% - 340px);
+  height: calc(100% - 40px);
   box-sizing: border-box;
-  overflow: auto; /* Добавляет прокрутку при необходимости */
+  overflow: auto;
 }
 
 .search-input {
@@ -71,8 +69,8 @@ body {
 }
 
 .message-list {
-  max-height: 100%; /* Убедитесь, что список сообщений заполняет доступное пространство */
-  overflow-y: auto; /* Добавляет прокрутку при необходимости */
+  max-height: 100%;
+  overflow-y: auto;
   background: #444;
   padding: 100px;
   border-radius: 4px;

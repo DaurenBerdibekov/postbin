@@ -1,14 +1,12 @@
 .search-add-friend {
-    position: fixed; /* Фиксируем элемент относительно окна браузера */
-    top: 5px;       /* Отступ сверху от верхнего края */
-    right: 5px;     /* Отступ справа от правого края */
-    width: 300px;    /* Ширина боковой панели */
-    padding: 20px;  /* Внутренние отступы для удобства */
+    top: 5px;
+    right: 5px;
+    width: 20%;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    background-color: #fff; /* Фон белый для лучшего контраста */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для визуального отделения */
-    z-index: 1000; /* Повышаем z-index, чтобы элемент был поверх других */
+    background-color: #fff;
+
 }
 
 .search-form {
