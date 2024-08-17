@@ -4,6 +4,7 @@ import berdibekov.de.backend.dto.PersonDTO;
 import berdibekov.de.backend.model.Person;
 import org.mapstruct.Mapper;
 
+import java.util.List;
 import java.util.Set;
 
 @Mapper(componentModel = "spring")
@@ -14,5 +15,7 @@ public interface PersonDTOMapper {
     Person toModel(PersonDTO personDTO);
 
     Set<PersonDTO> toDTOs(Set<Person> personSet);
+
+    List<PersonDTO> toDTOs(List<Person> personList);
 
 }
