@@ -26,4 +26,5 @@ The current version of the app allows the user to create an account and create p
 
 
 ## Run application
-To launch the application click here [postbin app](https://postbin.onrender.com)
+To launch the application click here [postbin app](https://postbin.onrender.com). The launch may take some time because of the free cloud hosting subscription. 
+  
